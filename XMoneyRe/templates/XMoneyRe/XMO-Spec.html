@@ -1,0 +1,296 @@
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/solid.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XMO-Spec-style.css' %}">
+
+<script>
+  function jump_to_user_outlook(username) {
+    window.location.href = "/XMoneyRe/userv/" + username;
+  }
+  delete_confirm_div = null;
+  is_showing_delete_confirmation = false;
+  $('document').ready(function () {
+    delete_confirm_div = document.getElementById("id_delete_confirm_div");
+  });
+  function switch_delete_confimation() {
+    if (is_showing_delete_confirmation == true) {
+      delete_confirm_div.style.display = "none";
+      is_showing_delete_confirmation = false;
+    }
+    else {
+      delete_confirm_div.style.display = "block";
+      is_showing_delete_confirmation = true;
+    }
+  }
+</script>
+
+<body>
+  {% if current_mo is None %}
+  <div class="container">
+
+    <!-- title here -->
+    <div class="row mt-3">
+      <!-- title here -->
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="title-text">? ? ?</p>
+      </div>
+    </div>
+
+
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- add feedback message -->
+    <div class="row" style="padding:0px; margin:0px;text-align:center;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-spec-feedback-message" style="padding:0px;margin:auto;">{{empty_message}}</p>
+      </div>
+    </div>
+
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/motpday/{{trip_day}}">今日消费</a>
+      </div>
+    </div>
+
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/">回到主页</a>
+      </div>
+    </div>
+
+
+  </div>
+  {% else %}
+  <div class="container">
+    <!-- title here -->
+    <div class="row mt-3">
+      <!-- title here -->
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="title-text">细节</p>
+      </div>
+    </div>
+
+    <!-- trip day MO list button -->
+    <div class="row mt-2 mb-2 pl-3 pr-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/motpday/{{trip_day}}" id="common-button" class="btn">今日消费</a>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row mb-3" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- name -->
+    <div class="row mb-4">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-name-class rounded">{--{{current_mo.name}}--}</p>
+      </div>
+    </div>
+
+    <!-- image and trip_day and local_time -->
+    <div class="row mt-2 mb-2 ml-2 mr-2">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12" style="margin:0px; padding:0px; position:relative;">
+        {% if current_mo.image == "" %}
+        <img src="/media/mo-images/default-image-lv.png" class="img-fluid rounded float-left object-image">
+        <span class="object-local-time" style="color:#007acc;">Local Date: <br />{{ current_mo.local_date }}</span>
+        <span class="object-trip-day" style="color:#007acc;">Tripday: {{ current_mo.trip_day }}</span>
+        {% else %}
+        <img src="{{mo_image_url}}" class="img-fluid rounded float-left object-image">
+        <span class="object-local-time" style="background-color:rgba(0, 0,0, 0.1);">Local Date:
+          <br />{{ current_mo.local_date }}</span>
+        <span class="object-trip-day" style="background-color:rgba(0, 0,0, 0.1);">Tripday:
+          {{ current_mo.trip_day }}</span>
+        {% endif %}
+        <!-- <img src="{% static 'XMoneyRe/images/image-border.png' %}" class="img-fluid rounded border-image"> -->
+      </div>
+    </div>
+
+
+
+    <!-- category and source -->
+    <div class="row mt-4 mb-4 ml-2 mr-2">
+      <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center rounded">
+        <p class="mo-category-source-class ">来自: {{current_mo.source}}</p>
+      </div>
+      <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center rounded">
+        <p class="mo-category-source-class ">为了: {{current_mo.category}}</p>
+      </div>
+    </div>
+
+
+
+    <!-- price -->
+    <div class="row mt-4 mb-4">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px; margin:0px;">
+        <p class="mo-price-class">{{ current_mo.price|add:" "|add:current_mo.currency_unit }}</p>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- description cue -->
+    <div class="row mt-3 mb-3 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-cue-class">详细描述于此:</p>
+      </div>
+    </div>
+    <!-- description -->
+    <div class="row mt-3 mb-3 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-class pl-2 pr-2 pt-2 pb-2">{{current_mo.description}}</p>
+      </div>
+    </div>
+
+    <!-- creator and updator -->
+    <div class="row mt-5 mb-2">
+      <!-- creator -->
+      <div class="col-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" style="padding:0;margin:0;" align="right">
+        <p class="admin-related-p">初始创建人: </p>
+      </div>
+      <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-1 pr-1" style="padding:0;margin:0;">
+        <img class="head-portrait-image rounded" src="{{ creator_hp_url }}"
+          onclick="jump_to_user_outlook('{{creator_username}}')">
+      </div>
+      <div class="col-2 col-md-2 col-sm-2 col-lg-2 col-xl-2" style="padding:0;margin:0; border-right: white 1px dashed;"
+        align="left">
+        <p class="admin-related-p"> {{creator_username}}</p>
+      </div>
+      <!-- updator -->
+      <div class="col-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" style="padding:0;margin:0;" align="right">
+        <p class="admin-related-p">最后更新人: </p>
+      </div>
+      <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-1 pr-1" style="padding:0;margin:0;">
+        <img class="head-portrait-image rounded" src="{{ updator_hp_url }}"
+          onclick="jump_to_user_outlook('{{updator_username}}')">
+      </div>
+      <div class="col-2 col-md-2 col-sm-2 col-lg-2 col-xl-2" style="padding:0;margin:0;" align="left">
+        <p class="admin-related-p"> {{updator_username}}</p>
+      </div>
+    </div>
+
+
+    <!-- seperation line -->
+    <div class="row mt-3" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    {% if is_admin == True %}
+
+    <!-- update this one -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a id="common-button" class="btn pl-3 pr-3" href="/XMoneyRe/upmo/{{current_mo.object_id}}">UPDATE</a>
+      </div>
+    </div>
+
+    <!-- update image -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a id="common-button" class="btn  pl-3 pr-3" href="/XMoneyRe/newmoimg/{{current_mo.object_id}}">NEW IMAGE</a>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    {% endif %}
+
+
+    <!-- trip day MO list button -->
+    <div class="row mt-2 mb-2 pl-3 pr-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/motpday/{{trip_day}}" id="common-button" class="btn">今日消费</a>
+      </div>
+    </div>
+
+    <!-- trip day MO list button -->
+    <div class="row mt-2 mb-2 pl-3 pr-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/" id="common-button" class="btn">回到主页</a>
+      </div>
+    </div>
+
+    {% if is_admin == True %}
+
+    <!-- seperation line -->
+    <div class="row mb-5" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- warning text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- danger operation here ----</p>
+      </div>
+    </div>
+
+    <!-- update image -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a id="common-button" style="background-color:#cc001b; color: white;" class="btn  pl-3 pr-3"
+          onclick="switch_delete_confimation()">DELETE</a>
+      </div>
+    </div>
+
+
+
+    <div id="id_delete_confirm_div" style="display: none;">
+      <!-- warning text -->
+      <div class="row mt-5">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+          style="padding:0px;margin:0px;text-align:center;">
+          <p class="description-text" style="color: white; font-weight: bolder;" align="center">ARE YOU SURE?</p>
+        </div>
+      </div>
+      <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <a id="common-button" class="btn  pl-3 pr-3  pt-3 pb-3" onclick="switch_delete_confimation()">NO!</a>
+        </div>
+      </div>
+      <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <a id="common-button" style="background-color:#cc001b; color: white;" class="btn  pl-3 pr-3"
+            href="/XMoneyRe/deletemo/{{current_mo.object_id}}">YES, CONFIRM</a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    {% endif %}
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- A BillLiaoM & LebortLiao Work ----</p>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+</body>

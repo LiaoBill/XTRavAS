@@ -1,0 +1,212 @@
+{% load static %}
+
+<title>NAME PART_ Add Money Object</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XUpdateTripInfo-style.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<script>
+
+  trip_day_board = null;
+  trip_day_value = null;
+  is_showing_trip_day_board = false;
+  utc_board = null;
+  utc_value = null;
+  is_showing_utc_board = false;
+  $('document').ready(function () {
+    trip_day_value = document.getElementById("id_trip_day_value");
+    trip_day_board = document.getElementById("id_trip_day_board");
+    utc_value = document.getElementById("id_utc_value");
+    utc_board = document.getElementById("id_utc_board");
+  });
+
+  function update_tripday(flag) {
+    if (flag == 1) {
+      // add
+      int_trip_day = parseInt(trip_day_value.value);
+      int_trip_day++;
+      trip_day_value.value = int_trip_day.toString();
+    }
+    else {
+      // minus
+      int_trip_day = parseInt(trip_day_value.value);
+      if (int_trip_day == 1) {
+        return;
+      }
+      else {
+        int_trip_day--;
+        trip_day_value.value = int_trip_day.toString();
+      }
+    }
+  }
+  function update_utc(flag) {
+    if (flag == 1) {
+      // add
+      int_utc = parseInt(utc_value.value);
+      if (int_utc == 12) {
+        return;
+      }
+      int_utc++;
+      utc_value.value = int_utc.toString();
+    }
+    else {
+      // minus
+      int_utc = parseInt(utc_value.value);
+      if (int_utc == -12) {
+        return;
+      }
+      else {
+        int_utc--;
+        utc_value.value = int_utc.toString();
+      }
+    }
+  }
+  function switch_trip_day_board() {
+    if (is_showing_trip_day_board == true) {
+      trip_day_board.style.display = "none";
+      is_showing_trip_day_board = false;
+    }
+    else {
+      trip_day_board.style.display = "block";
+      is_showing_trip_day_board = true;
+    }
+  }
+  function switch_utc_board() {
+    if (is_showing_utc_board == true) {
+      utc_board.style.display = "none";
+      is_showing_utc_board = false;
+    }
+    else {
+      utc_board.style.display = "block";
+      is_showing_utc_board = true;
+    }
+  }
+
+</script>
+
+<body>
+  <div class="container">
+    <!-- title here -->
+    <div class="row mt-3">
+      <!-- title here -->
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="title-text">Trip Info</p>
+      </div>
+    </div>
+
+    <!-- back to admin page -->
+    <div class="row mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 pl-5 pr-5 d-flex align-items-center">
+        <a id="common-button" class="btn  pl-3 pr-3" href="/XMoneyRe/mf">Cancel</a>
+      </div>
+    </div>
+
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- description cue -->
+    <div class="row mt-1 mb-2 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-cue-class">You think trip day is automatically updated?</p>
+      </div>
+    </div>
+    <div class="row mb-3 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-cue-class" style="font-size: .7rem;">Then your brain must be fucked over.</p>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+        style="height: .3rem; width: 100%">
+    </div>
+
+    <!-- add feedback message -->
+    <div class="row" style="padding:0px; margin:0px;text-align:center;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="addmo-feedback-message" style="padding:0px;margin:auto;">{{ addmo_feedback }}</p>
+      </div>
+    </div>
+
+    <!-- main form part -->
+    <form action="updtripinfo" method="post">
+      {% csrf_token %}
+      <!-- trip day -->
+      <div class="row mt-2 ml-2 mr-2">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <p class="mo_key_des">Trip Day:</p>
+        </div>
+      </div>
+      <div class="row mt-2 ml-2 mr-2">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <input class="mo_key_input" type="text" name="mo_trip_day" id="id_trip_day_value" value="{{trip_day}}"
+            onclick="switch_trip_day_board()" readonly />
+        </div>
+      </div>
+      <!-- source board -->
+      <div id="id_trip_day_board" style="display:none;" class="mt-2">
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+            <p class="btn source_button" onclick="update_tripday(-1)">-</p>
+          </div>
+          <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+            <p class="btn source_button" onclick="update_tripday(1)">+</p>
+          </div>
+        </div>
+        <!-- done button -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn keyboard-done-btn" onclick="switch_trip_day_board()">Done</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- utc -->
+      <div class="row mt-2 ml-2 mr-2">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <p class="mo_key_des">UTC:</p>
+        </div>
+      </div>
+      <div class="row mt-2 ml-2 mr-2">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <input class="mo_key_input" type="text" name="mo_utc" id="id_utc_value" value="{{current_utc}}"
+            onclick="switch_utc_board()" readonly />
+        </div>
+      </div>
+      <!-- source board -->
+      <div id="id_utc_board" style="display:none;" class="mt-2">
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+            <p class="btn source_button" onclick="update_utc(-1)">-</p>
+          </div>
+          <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+            <p class="btn source_button" onclick="update_utc(1)">+</p>
+          </div>
+        </div>
+        <!-- done button -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn keyboard-done-btn" onclick="switch_utc_board()">Done</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- submit button -->
+      <div class="mt-5 pl-2 pr-2">
+          <input class="btn submit-button" type="submit" value="Submit">
+        </div>
+
+
+    </form>
+
+
+  </div>
+</body>

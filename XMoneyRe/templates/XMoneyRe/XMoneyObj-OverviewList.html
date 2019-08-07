@@ -1,0 +1,24 @@
+{% load static %}
+{% load XMoneyObj_singleOverview %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+
+<!-- example here -->
+<title>NAME PART_ 消费项列表</title>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/solid.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XMoneyObj-SingleOverview-style.css' %}">
+
+{% if x_money_object_list %}
+<div class="container">
+    {% for x_money_object in x_money_object_list %}
+      {% show_single_overview x_money_object %}
+    {% endfor %}
+</div>
+{% else %}
+  <p>ERROR PART_ Empty list.</p>
+{% endif %}

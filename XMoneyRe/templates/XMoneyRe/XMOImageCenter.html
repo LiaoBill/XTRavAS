@@ -1,0 +1,131 @@
+{% load static %}
+
+<title>NAME PART_ 用户中心界面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XUserCenter-style.css' %}">
+
+<body>
+<div class="container">
+  <!-- username -->
+  <div class="row mt-1">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 mt-3 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;text-align:center;">
+      <p class="username-text" align="center">Hi there, {{username}}!</p>
+    </div>
+  </div>
+
+  <!-- seperating line -->
+  <div class="row ml-1 mr-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left" style="height: 1rem; width: 100%">
+  </div>
+
+  <!-- your profile text -->
+  <div class="row mt-1">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12  mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;text-align:center;">
+      <p class="description-text" align="center">head portraits here (100X100)</p>
+    </div>
+  </div>
+
+  <!-- headportrait -->
+  <div class="row mt-1">
+    <!-- normal version -->
+    <div class="col-7 col-md-7 col-sm-7 col-lg-7 col-xl-7 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;border-right: dashed 1px white;">
+      <img class="head-portrait-image rounded" id="hpi_id" src="{{ headportrait_url}}">
+    </div>
+    <!-- head portrait smaller version -->
+    <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <img class="head-portrait-image-smallv rounded" id="hpi_id_sv"  src="{{ headportrait_url}}">
+    </div>
+  </div>
+
+  <!-- headportrait description text -->
+  <div class="row mt-1">
+    <!-- normal version -->
+    <div class="col-7 col-md-7 col-sm-7 col-lg-7 col-xl-7 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;border-right: dashed 1px white;">
+      <p class="description-text" align="center">Amplified Version</p>
+    </div>
+    <!-- head portrait smaller version -->
+    <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="description-text" align="center">Actual Version</p>
+    </div>
+  </div>
+
+  <!-- left turn right turn buttons -->
+  <div class="row mt-1">
+    <!-- left button -->
+    <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 mt-1 mb-1 pl-3 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <a href="hprl" class="btn rotate-button ml-3" style="width: 70%;">L</a>
+    </div>
+    <!-- right button-->
+    <div class="col-3 col-md-3 col-sm-3 col-lg-3 col-xl-3 mt-1 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;border-right: dashed 1px white;">
+      <a href="hprr" class="btn rotate-button" style="width: 80%;">R</a>
+    </div>
+    <!-- des cription -->
+    <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 mt-3 mb-1 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="description-text" align="center">rotate buttons</p>
+    </div>
+  </div>
+
+  <!-- seperating line -->
+  <div class="row ml-1 mr-2 mt-1 mb-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left" style="height: 1rem; width: 100%">
+  </div>
+
+  <!-- back to mainfunction page -->
+  <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <a class="btn back-button pl-3 pr-3" href="mf">Back To Main</a>
+    </div>
+  </div>
+
+  <!-- update head portrait -->
+  <div class="row mt-3 mb-2" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <a class="btn common-button pl-3 pr-3" href = "upheadp" style="color: #007acc;">New Head Portrait</a>
+    </div>
+  </div>
+
+  <!-- seperating line -->
+  <div class="row ml-1 mr-2 mt-1 mb-1">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left" style="height: 2rem; width: 100%">
+  </div>
+  <!-- warning text -->
+  <div class="row mt-1">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;text-align:center;">
+      <p class="description-text" align="center">---- danger operation here ----</p>
+    </div>
+  </div>
+  <!-- seperating line -->
+  <div class="row ml-1 mr-2 mt-1 mb-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left" style="height: 2rem; width: 100%">
+  </div>
+
+  <!-- log out -->
+  <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <a href="logout" class="btn common-button pl-3 pr-3" style="color: #007acc;">Log Out</a>
+    </div>
+  </div>
+
+  <!-- ending text -->
+  <div class="row mt-5">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;text-align:center;">
+      <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+    </div>
+  </div>
+
+</div>
+</body>

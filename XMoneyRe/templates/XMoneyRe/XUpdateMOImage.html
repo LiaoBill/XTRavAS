@@ -1,0 +1,67 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<title>NAME PART_ new image</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XUpdateHeadPortrait-style.css' %}">
+
+<body>
+  <div class="container">
+    <!-- title part -->
+    <div class="row mt-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="title-text-1">Update</p> 
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="title-text-2">New Image Here</p>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- form description -->
+    <div class="row" style="padding:0px; margin:0px;text-align:center;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        {% if error_information == "" %}
+          <p class="description-text">choose one image please</p>
+        {% else %}
+          <p class="description-text">{{error_information}}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- upload image form -->
+    {% crispy image_form %}
+
+    <!-- seperating line -->
+    <div class="row ml-1 mr-2 mt-2 mb-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+        style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/mo/{{current_mo.object_id}}">Cancel</a>
+      </div>
+    </div>
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,586 @@
+{% load static %}
+
+<title>NAME PART_ Update Money Object</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XUpdateMoneyObject-style.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+  dot_counter = 0;
+  dot_post_counter = 0;
+  is_first = 0;
+  // price
+  price_input = null;
+  price_keyboard = null;
+  // currency unit
+  mo_currency_unit = null;
+  currency_unit_board = null;
+  // source
+  mo_source = null;
+  source_board = null;
+  // category
+  mo_category = null;
+  category_board = null;
+  // is flags
+  // price
+  is_showing_price_keyboard = false;
+  // currency unit
+  is_showing_currency_unit_board = false;
+  // source
+  is_showing_source_board = false;
+  // category
+  is_showing_category_board = false;
+  // tripday
+  is_showing_trip_day_board = false;
+  // localdate
+  is_showing_local_date_board = false;
+
+
+  // tripday
+  mo_trip_day = null;
+  mo_trip_day_pannel = null;
+
+  // localdate
+  mo_local_time = null;
+  mo_local_date_pannel = null;
+
+  $('document').ready(function () {
+    // price
+    price_input = document.getElementById("id_mo_price");
+    price_keyboard = document.getElementById("id_price_keyboard");
+    // currency unit
+    mo_currency_unit = document.getElementById("id_mo_currency_unit");
+    currency_unit_board = document.getElementById("id_currency_unit_board");
+    // source
+    mo_source = document.getElementById("id_mo_source");
+    source_board = document.getElementById("id_source_board");
+    // category
+    mo_category = document.getElementById("id_mo_category");
+    category_board = document.getElementById("id_category_board");
+    // tripday
+    mo_trip_day = document.getElementById("id_mo_trip_day");
+    mo_trip_day_pannel = document.getElementById("id_mo_trip_day_pannel");
+    // localdate
+    mo_local_time = document.getElementById("id_mo_local_time");
+    mo_local_date_pannel = document.getElementById("id_mo_local_date_pannel");
+  });
+  // local time
+  Date.prototype.addHours = function (h) {
+    this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+    return this;
+  }
+  function switch_ld_update_button() {
+    if (is_showing_trip_day_board == true) {
+      mo_trip_day_pannel.style.display = 'none';
+      is_showing_trip_day_board = false;
+    }
+    if (is_showing_local_date_board == false) {
+      mo_local_date_pannel.style.display = 'block';
+      is_showing_local_date_board = true;
+    }
+    else {
+      mo_local_date_pannel.style.display = 'none';
+      is_showing_local_date_board = false;
+    }
+  }
+
+  function ld_add(flag) {
+    date_string = mo_local_time.value.substring("Local Date: ".length + 1, mo_local_time.value.length);
+    date_list = date_string.split("-");
+    date = new Date(
+      date_list[0],
+      date_list[1] - 1,
+      date_list[2],
+      date_list[3],
+      date_list[4],
+      date_list[5]
+    );
+    if (flag == 1)
+      date.addHours(1);
+    else
+      date.addHours(-1);
+    result_string = "";
+    result_string += date.getFullYear() + "-";
+    result_string += ((date.getMonth() + 1).toString().length == 2 ? (date.getMonth() + 1) : ("0" + (date.getMonth() + 1))) + "-";
+    result_string += ((date.getDate()).toString().length == 2 ? (date.getDate()) : ("0" + (date.getDate()))) + "-";
+    result_string += ((date.getHours()).toString().length == 2 ? (date.getHours()) : ("0" + (date.getHours()))) + "-";
+    result_string += ((date.getMinutes()).toString().length == 2 ? (date.getMinutes()) : ("0" + (date.getMinutes()))) + "-";
+    result_string += ((date.getSeconds()).toString().length == 2 ? (date.getSeconds()) : ("0" + (date.getSeconds())));
+    mo_local_time.value = "Local Date: \n" + result_string;
+  }
+
+
+  // tripday
+  function switch_td_update_button() {
+    if (is_showing_local_date_board == true) {
+      mo_local_date_pannel.style.display = 'none';
+      is_showing_local_date_board = false;
+    }
+    if (is_showing_trip_day_board == false) {
+      mo_trip_day_pannel.style.display = 'block';
+      is_showing_trip_day_board = true;
+    }
+    else {
+      mo_trip_day_pannel.style.display = 'none';
+      is_showing_trip_day_board = false;
+    }
+  }
+
+  function td_add(flag) {
+    current_day = parseInt(mo_trip_day.value.substring(9, mo_trip_day.value.length));
+    if (flag == 1) {
+      current_day++;
+      mo_trip_day.value = "Tripday: " + current_day;
+    }
+    else {
+      if (current_day == 1) {
+        // do nothing
+      }
+      else {
+        current_day--;
+        mo_trip_day.value = "Tripday: " + current_day;
+      }
+    }
+  }
+
+  // category
+  function select_category(category) {
+    mo_category.value = category;
+  }
+  function switch_category_board() {
+    if (is_showing_source_board == true) {
+      source_board.style.display = 'none';
+      is_showing_source_board = false;
+    }
+    if (is_showing_category_board == false) {
+      category_board.style.display = 'block';
+      is_showing_category_board = true;
+    }
+    else {
+      category_board.style.display = 'none';
+      is_showing_category_board = false;
+    }
+  }
+
+  // source
+  function select_source(source) {
+    mo_source.value = source;
+  }
+  function switch_source_board() {
+    if (is_showing_category_board == true) {
+      category_board.style.display = 'none';
+      is_showing_category_board = false;
+    }
+    if (is_showing_source_board == false) {
+      source_board.style.display = 'block';
+      is_showing_source_board = true;
+    }
+    else {
+      source_board.style.display = 'none';
+      is_showing_source_board = false;
+    }
+  }
+
+  // currency unit
+  function select_currency_unit(currency_unit) {
+    mo_currency_unit.value = currency_unit;
+  }
+  function switch_currency_unit_board() {
+    if (is_showing_price_keyboard == true) {
+      price_keyboard.style.display = 'none';
+      is_showing_price_keyboard = false;
+    }
+    if (is_showing_currency_unit_board == false) {
+      currency_unit_board.style.display = 'block';
+      is_showing_currency_unit_board = true;
+    }
+    else {
+      currency_unit_board.style.display = 'none';
+      is_showing_currency_unit_board = false;
+    }
+  }
+  // price
+  function switch_keyboard() {
+    if (is_showing_currency_unit_board == true) {
+      currency_unit_board.style.display = 'none';
+      is_showing_currency_unit_board = false;
+    }
+    if (is_showing_price_keyboard == false) {
+      price_keyboard.style.display = 'block';
+      is_showing_price_keyboard = true;
+    }
+    else {
+      price_keyboard.style.display = 'none';
+      is_showing_price_keyboard = false;
+    }
+  }
+  function xkey_pressed(pressed_key) {
+    if (pressed_key == '.') {
+      // pressing dot
+      if (dot_counter == 0) {
+        if (is_first == 0) {
+          // press dot at head
+          price_input.value += "0";
+          dot_counter++;
+          price_input.value += pressed_key;
+          is_first = 1;
+        }
+        else {
+          dot_counter++;
+          price_input.value += pressed_key;
+          is_first = 1;
+        }
+      }
+      else if (dot_counter == 1) {
+        // double dot
+        // do nothing
+      }
+    }
+    else if (pressed_key == "Backspace") {
+      // back space input
+      if (price_input.value.length == 1) {
+        price_input.value = "";
+        is_first = 0;
+      }
+      else if (price_input.value.length > 1) {
+        price_input.value = price_input.value.substring(0, price_input.value.length - 1);
+        if (dot_counter == 1) {
+          if (dot_post_counter == 2 || dot_post_counter == 1) {
+            dot_post_counter--;
+          }
+          else if (dot_post_counter == 0) {
+            dot_counter = 0;
+          }
+        }
+      }
+    }
+    else {
+      // other numbers input
+      if (dot_counter == 1) {
+        if (dot_post_counter == 2) {
+          // do nothing, full
+        }
+        else if (dot_post_counter == 0 || dot_post_counter == 1) {
+          price_input.value += pressed_key;
+          dot_post_counter++;
+        }
+      }
+      else if (dot_counter == 0) {
+        // just put every number onto it
+        price_input.value += pressed_key;
+        // not first anymore
+        is_first = 1;
+      }
+    }
+  }
+</script>
+
+<body>
+  <div class="container">
+    <form action="/XMoneyRe/upmo/{{current_mo.object_id}}" method="post">
+      {% csrf_token %}
+      <!-- title here -->
+      <div class="row mt-3">
+        <!-- title here -->
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+          style="padding:0px;margin:0px;">
+          <p class="title-text">Update This</p>
+        </div>
+      </div>
+
+      <!-- trip day MO list button -->
+      <div class="row mt-2 mb-2 pl-3 pr-3" style="padding:0px; margin:0px;">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <a href="/XMoneyRe/mo/{{current_mo.object_id}}" id="common-button" class="btn">Cancel</a>
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: 2rem; width: 100%">
+      </div>
+
+      <!-- add feedback message -->
+      {% if error_message != "" %}
+      <div class="row" style="padding:0px; margin:0px;text-align:center;">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <p class="addmo-feedback-message" style="padding:0px;margin:auto;">{{ error_message }}</p>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- name -->
+      <div class="row mb-4 mt-4">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+          style="padding:0;margin:0;">
+          <input class="mo-name-class mo_key_input" value="{{current_mo.name}}" name="mo_name" />
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: .7rem; width: 100%">
+      </div>
+
+      <!-- image and trip_day and local_time -->
+      <div class="row mt-2 mb-2 ml-2 mr-2">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12" style="margin:0px; padding:0px; position:relative;">
+          <!-- image here -->
+          <!-- click to jump to update image page -->
+          {% if current_mo.image == "" %}
+          <img src="/media/mo-images/default-image-lv.png" class="img-fluid rounded float-left object-image">
+          {% else %}
+          <img src="{{mo_image_url}}" class="img-fluid rounded float-left object-image">
+          {% endif %}
+
+
+          <!-- trip_day -->
+          <input class="object-trip-day" name="mo_trip_day" value="Tripday: {{ current_mo.trip_day }}" readonly
+            onclick="switch_td_update_button()" id="id_mo_trip_day" />
+          <!-- update buttons -->
+          <div id="id_mo_trip_day_pannel" style="display:none;">
+            <span class="btn td-lt-button-add" onclick="td_add(1)">+</span>
+            <span class="btn td-lt-button-done" onclick="switch_td_update_button()">done</span>
+            <span class="btn td-lt-button-minus" onclick="td_add(-1)">-</span>
+          </div>
+
+
+          <!-- local_date -->
+          <textarea class="object-local-time" name="mo_local_time" readonly onclick="switch_ld_update_button()"
+            id="id_mo_local_time">Local Date: &#10;{{ current_mo.local_date }}</textarea>
+          <!-- update buttons -->
+          <div id="id_mo_local_date_pannel" style="display:none;">
+            <span class="btn td-lt-button-add" onclick="ld_add(1)">+</span>
+            <span class="btn td-lt-button-done" onclick="switch_ld_update_button()">done</span>
+            <span class="btn td-lt-button-minus" onclick="ld_add(-1)">-</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: .7rem; width: 100%">
+      </div>
+
+      <!-- category and source -->
+      <div class="row mt-2 mb-2">
+        <!-- source -->
+        <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center"
+          style="border-right: white 1px dashed;">
+          <input type="text" class="mo-category-source-class" name="mo_source" id="id_mo_source" readonly
+            onclick="switch_source_board()" value="From: {{current_mo.source}}" />
+        </div>
+        <!-- category -->
+        <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center">
+          <input type="text" class="mo-category-source-class" name="mo_category" id="id_mo_category" readonly
+            onclick="switch_category_board()" value="For: {{current_mo.category}}" />
+        </div>
+      </div>
+      <!-- source board -->
+      <div id="id_source_board" style="display:none;" class="mt-2">
+        <!-- Yuan Yuan Source -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn source_button" onclick="select_source('From: YuanYuan')">YuanYuan</p>
+          </div>
+        </div>
+        <!-- Hao Hao Source -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn source_button" onclick="select_source('From: HaoHao')">HaoHao</p>
+          </div>
+        </div>
+        <!-- done button -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn keyboard-done-btn" onclick="switch_source_board()">Done</p>
+          </div>
+        </div>
+      </div>
+      <!-- category board -->
+      <div id="id_category_board" style="display:none;" class="mt-2">
+        <!-- Yuan Yuan category -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn category_button" onclick="select_category('For: YuanYuan')">YuanYuan</p>
+          </div>
+        </div>
+        <!-- Hao Hao category -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn category_button" onclick="select_category('For: HaoHao')">HaoHao</p>
+          </div>
+        </div>
+        <!-- Mutual category -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn category_button" onclick="select_category('For: Mutual')">Mutual</p>
+          </div>
+        </div>
+        <!-- done button -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn keyboard-done-btn" onclick="switch_category_board()">Done</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: .7rem; width: 100%">
+      </div>
+
+      <!-- price and currency unit part -->
+      <div class="row mt-2 mb-2">
+        <!-- price -->
+        <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center pr-2"
+          style="padding:0px; margin:0px;">
+          <input type="text" class="mo-price-class" name="mo_price" id="id_mo_price" value="{{ current_mo.price }}"
+            readonly onclick="switch_keyboard()" style="text-align: right;" />
+        </div>
+        <!-- currency unit -->
+        <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center pl-2"
+          style="padding:0px; margin:0px;">
+          <input type="text" class="mo-currency-unit-class" name="mo_currency_unit" id="id_mo_currency_unit"
+            value="{{ current_mo.currency_unit }}" readonly onclick="switch_currency_unit_board()"
+            style="text-align: left;" />
+        </div>
+      </div>
+      <!-- input keyboard -->
+      <div id="id_price_keyboard" style="display:none;" class="mt-2">
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(1)">1</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(2)">2</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(3)">3</p>
+          </div>
+        </div>
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(4)">4</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(5)">5</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(6)">6</p>
+          </div>
+        </div>
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(7)">7</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(8)">8</p>
+          </div>
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(9)">9</p>
+          </div>
+        </div>
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-4 col-md-4 col-sm-4 col-lg-4 col-xl-4 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed(0)">0</p>
+          </div>
+          <div class="col-8 col-md-8 col-sm-8 col-lg-8 col-xl-8 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed('.')">.</p>
+          </div>
+        </div>
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-btn" onclick="xkey_pressed('Backspace')">Backspace</p>
+          </div>
+        </div>
+        <div class="row mt-1" style="padding:0px; margin:0px;">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center pl-1 pr-1"
+            style="padding:0px;margin:0px;">
+            <p class="btn keyboard-done-btn" onclick="switch_keyboard()">DONE</p>
+          </div>
+        </div>
+      </div>
+      <!-- currency unit board -->
+      <div id="id_currency_unit_board" style="display:none;" class="mt-2">
+        <!-- all currency units -->
+        {% for currency_unit in currency_unit_list %}
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn currency_unit_button" onclick="select_currency_unit('{{currency_unit}}')">{{currency_unit}}
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- done button -->
+        <div class="row mt-2 ml-2 mr-2">
+          <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+            <p class="btn keyboard-done-btn" onclick="switch_currency_unit_board()">Done</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: .7rem; width: 100%">
+      </div>
+
+      <!-- description cue -->
+      <div class="row mt-3 mb-3 ml-3 mr-3">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+          style="padding:0;margin:0;">
+          <p class="mo-description-cue-class">Detailed description here:</p>
+        </div>
+      </div>
+      <!-- description -->
+      <div class="row mt-3 mb-3 ml-3 mr-3">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <textarea class="mo-description-class pl-2 pr-2 pt-2 pb-2"
+            name="mo_description">{{current_mo.description}}</textarea>
+        </div>
+      </div>
+
+      <!-- seperation line -->
+      <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid"
+          style="height: 2rem; width: 100%">
+      </div>
+
+      <!-- submit button -->
+      <div class="mt-2 ml-5 mr-5">
+        <input id="common-button" class="btn" type="submit" value="Submit">
+      </div>
+
+
+    </form>
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- A BillLiaoM & LebortLiao Work ----</p>
+      </div>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,190 @@
+{% load static %}
+{% load XMoneyObj_singleOverview %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+
+<!-- example here -->
+<title>NAME PART_ Tripday MO lisrt</title>
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/solid.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XMO-Tripday-style.css' %}">
+<script>
+
+  function switch_trip_day(flag, trip_day) {
+    if (flag == 1) {
+      trip_day_int = parseInt(trip_day);
+      trip_day_int++;
+      window.location.href = "/XMoneyRe/motpday/" + trip_day_int.toString();
+    }
+    else {
+      if (parseInt(trip_day) == 1) {
+        // do nothing
+        return;
+      }
+      trip_day_int = parseInt(trip_day);
+      trip_day_int--;
+      window.location.href = "/XMoneyRe/motpday/" + trip_day_int.toString();
+    }
+
+  }
+
+  is_showing_control_div = false;
+  control_area = null;
+  control_button = null;
+  $('document').ready(function () {
+    control_area = document.getElementById("id_div_control_area");
+    control_button = document.getElementById("control-button");
+  });
+
+  function switch_control_div() {
+    if (is_showing_control_div == true) {
+      control_area.style.display = "none";
+      control_button.style.color = "#007acc";
+      control_button.style.background = "#f5f5f5";
+      is_showing_control_div = false;
+    }
+    else {
+      control_area.style.display = "block";
+      control_button.style.color = "#f5f5f5";
+      control_button.style.background = "#cc001b";
+      is_showing_control_div = true;
+    }
+  }
+
+
+</script>
+
+{% if empty_message == "" %}
+<div class="container">
+  <div class="row mt-3">
+    <!-- title here -->
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="title-text">旅行日 {{trip_day}}</p>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <!-- title here -->
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="title-text" style="font-size: 1rem;">当日记录数: {{record_count}} 条</p>
+    </div>
+  </div>
+
+  <!-- seperation line -->
+  <div class="row" style="padding:0px; margin:0px;">
+    <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: .7rem; width: 100%">
+  </div>
+
+  <!-- back to mainfunction page -->
+  <div class="row mt-3 mb-3" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 pl-5 pr-5 d-flex align-items-center">
+      <a id="control-button" class="btn pl-3 pr-3" onclick="switch_control_div()">便捷面板</a>
+    </div>
+  </div>
+
+  <div id="id_div_control_area" style="display:none;">
+    <!-- left right button -->
+    <div class="row mt-1 ml-5 mr-5">
+      <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center pr-2"
+        style="padding:0px;margin:0px;">
+        <a class="btn rounded" id="trip-day-button" onclick="switch_trip_day(-1, '{{trip_day}}')">前一日</a>
+      </div>
+      <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 d-flex align-items-center pl-2 "
+        style="padding:0px;margin:0px;">
+        <a id="trip-day-button" onclick="switch_trip_day(1, '{{trip_day}}')" class="btn rounded">后一日</a>
+      </div>
+    </div>
+
+    <!-- back to list page -->
+    <div class="row mt-3 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 pl-5 pr-5 d-flex align-items-center">
+        <a id="back-button" class="btn  pl-3 pr-3" href="/XMoneyRe/motpday/{{current_trip_day}}">今日消费</a>
+      </div>
+    </div>
+
+    <!-- back to main -->
+    <div class="row mt-3 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 pl-5 pr-5 d-flex align-items-center">
+        <a id="back-button" class="btn  pl-3 pr-3" href="/XMoneyRe/">回到主页</a>
+      </div>
+    </div>
+
+    {% if is_admin == True%}
+    <div class="row mt-3 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 pl-5 pr-5 d-flex align-items-center">
+        <a id="back-button" class="btn  pl-3 pr-3" href="/XMoneyRe/mf" style="color: #cc001b;">主功能区</a>
+      </div>
+    </div>
+    {% endif%}
+  </div>
+
+
+  <!-- seperation line -->
+  <div class="row" style="padding:0px; margin:0px;">
+    <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+  </div>
+
+  {% for x_money_object in x_money_object_list %}
+  {% show_single_overview x_money_object admin_list%}
+  {% endfor %}
+
+  <!-- ending text -->
+  <div class="row mt-5">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;text-align:center;">
+      <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="container">
+  <div class="row mt-3">
+    <!-- title here -->
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="title-text">旅行日 {{trip_day}}</p>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <!-- title here -->
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+      style="padding:0px;margin:0px;">
+      <p class="title-text" style="font-size: 1rem;">当日记录数: {{record_count}}</p>
+    </div>
+  </div>
+
+  <!-- seperation line -->
+  <div class="row" style="padding:0px; margin:0px;">
+    <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: .7rem; width: 100%">
+  </div>
+
+  <!-- add feedback message -->
+  <div class="row" style="padding:0px; margin:0px;text-align:center;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <p class="tripdaymo-feedback-message" style="padding:0px;margin:auto;">{{ empty_message }}</p>
+    </div>
+  </div>
+
+  <!-- back to mainfunction page -->
+  <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <a id="back-button" class="btn pl-3 pr-3" href="/XMoneyRe/motpday/{{current_trip_day}}">今日消费</a>
+    </div>
+  </div>
+
+  <!-- back to mainfunction page -->
+  <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+    <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+      <a id="back-button" class="btn pl-3 pr-3" href="/XMoneyRe/">回到主页</a>
+    </div>
+  </div>
+
+</div>
+{% endif %}

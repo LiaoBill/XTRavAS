@@ -1,0 +1,146 @@
+{% load static %}
+
+<title>Admin Main Function Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XMainFunctionPage-style.css' %}">
+
+<script>
+function jump_to_user_center(){
+  window.location.href = "/XMoneyRe/uscenter";
+}
+</script>
+
+<body>
+  <div class="container">
+    <!-- title -->
+    <div class="row mt-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align: center;">
+        <p class="title-text">XTRavAs System</p>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 2rem; width: 100%">
+    </div>
+
+    <!-- user information -->
+    <div class="row mt-1 mb-2">
+      <!-- hello -->
+      <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 pr-1 pt-3" style="padding:0;margin:0px;">
+        <p class="small-title" style="float:right;">Hello there </p>
+      </div>
+
+      <!-- user image -->
+      <div class="col-2 col-md-2 col-sm-2 col-lg-2 col-xl-2 pl-1 pr-1" style="padding:0px;margin:0px;">
+        {% if is_admin is True %}
+        <img class="head-portrait-image rounded" src="{{ headportrait_url }}" onclick="jump_to_user_center()">
+        {% else %}
+        <img class="head-portrait-image rounded" src="/media/user-head-portraits/viewer-default-headportrait.png">
+        {% endif %}
+      </div>
+
+      <!-- username -->
+      <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 pl-1 pr-2 pt-3"
+        style="padding:0px;margin:0px;text-align: left;">
+        <p class="small-title" style="float:left;"> {{showing_name}} (Bang!)</p>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: 1rem; width: 100%">
+    </div>
+
+    <!-- buttons -->
+
+    <!-- description cue -->
+    <div class="row mt-1 mb-2 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-cue-class">Function buttons here:</p>
+      </div>
+    </div>
+    <div class="row mb-3 ml-3 mr-3">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <p class="mo-description-cue-class" style="font-size: .7rem;">hack the task out!</p>
+      </div>
+    </div>
+
+    <!-- description cue -->
+    <div class="row mt-1 mb-2 ml-3 mr-3">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <p class="mo-description-cue-class">Current Trip Day: {{trip_day}}</p>
+        </div>
+      </div>
+    <!-- description cue -->
+    <div class="row mt-1 mb-2 ml-3 mr-3">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <p class="mo-description-cue-class">Current timezone: utc{{current_utc}}</p>
+        </div>
+      </div>
+      <!-- seperation line -->
+    <div class="row" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: .7rem; width: 100%">
+      </div>
+
+    <!-- add button -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a id="common-button" class="btn" href="/XMoneyRe/addmo">+</a>
+      </div>
+    </div>
+
+
+
+    <!-- trip day MO list button -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/motpday/{{trip_day}}" id="common-button" class="btn">Today List</a>
+      </div>
+    </div>
+
+    
+
+    <!-- seperation line -->
+    <div class="row mt-4 mb-4" style="padding:0px; margin:0px;">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: .7rem; width: 100%">
+    </div>
+
+    <!--trip info update button -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/updtripinfo" id="common-button" class="btn">Trip Day & UTC</a>
+      </div>
+    </div>
+    <!-- user center button -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a href="/XMoneyRe/uscenter" id="common-button" class="btn">User center</a>
+      </div>
+    </div>
+
+    <!-- seperation line -->
+    <div class="row mt-4 mb-4" style="padding:0px; margin:0px;">
+        <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid" style="height: .7rem; width: 100%">
+      </div>
+
+    <!-- trip day MO list button -->
+    <div class="row mt-2 mb-2" style="padding:0px; margin:0px;">
+        <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+          <a href="/XMoneyRe/" id="common-button" class="btn">Back To Main</a>
+        </div>
+      </div>
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+      </div>
+    </div>
+  </div>
+</body>

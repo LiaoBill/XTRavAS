@@ -1,0 +1,155 @@
+{% load static %}
+
+<title>NAME PART_ 用户中心界面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XUserView-style.css' %}">
+<script>
+  function jumpToUserCenter() {
+    window.location.href = "/XMoneyRe/uscenter";
+  }
+</script>
+
+<body>
+  {% if username is None %}
+  <div class="container">
+    <div class="row mt-1">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 mt-3 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="username-text" align="center">Sorry ?!</p>
+      </div>
+    </div>
+    <!-- seperating line -->
+    <div class="row ml-1 mr-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+        style="height: 1rem; width: 100%">
+    </div>
+
+    <!-- your profile text -->
+    <div class="row mt-1">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12  mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">No such person!</p>
+      </div>
+    </div>
+
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/motpday/{{trip_day}}">Today List</a>
+      </div>
+    </div>
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/">Back To Main</a>
+      </div>
+    </div>
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container">
+    <!-- username -->
+    <div class="row mt-1">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 mt-3 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="username-text" align="center">Here is: {{username}}!</p>
+      </div>
+    </div>
+
+    <!-- seperating line -->
+    <div class="row ml-1 mr-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+        style="height: 1rem; width: 100%">
+    </div>
+
+    <!-- your profile text -->
+    <div class="row mt-1">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12  mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">His soul here (100X100):</p>
+      </div>
+    </div>
+
+    <!-- headportrait -->
+    <div class="row mt-1">
+      <!-- normal version -->
+      <div class="col-7 col-md-7 col-sm-7 col-lg-7 col-xl-7 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;border-right: dashed 1px white;">
+        <img class="head-portrait-image rounded" id="hpi_id" src="{{ headportrait_url}}" onclick="jumpToUserCenter()">
+      </div>
+      <!-- head portrait smaller version -->
+      <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <img class="head-portrait-image-smallv rounded" id="hpi_id_sv" src="{{ headportrait_url}}"
+          onclick="jumpToUserCenter()">
+      </div>
+    </div>
+
+    <!-- headportrait description text -->
+    <div class="row mt-1">
+      <!-- normal version -->
+      <div class="col-7 col-md-7 col-sm-7 col-lg-7 col-xl-7 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;border-right: dashed 1px white;">
+        <p class="description-text" align="center">Amplified Version</p>
+      </div>
+      <!-- head portrait smaller version -->
+      <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;">
+        <p class="description-text" align="center">Actual Version</p>
+      </div>
+    </div>
+
+    <!-- seperating line -->
+    <div class="row ml-1 mr-2 mt-1 mb-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+        style="height: 1rem; width: 100%">
+    </div>
+
+    <!-- your profile text -->
+    <div class="row mt-1">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12  mb-1 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center" style="font-size: .7rem;">What's your problem with this little shit
+          sucker?</p>
+      </div>
+    </div>
+
+    <!-- seperating line -->
+    <div class="row ml-1 mr-2 mt-1 mb-2">
+      <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+        style="height: 1rem; width: 100%">
+    </div>
+
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/motpday/{{trip_day}}">Today List</a>
+      </div>
+    </div>
+    <!-- back to mainfunction page -->
+    <div class="row mt-2 mb-3" style="padding:0px; margin:0px;">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center">
+        <a class="btn back-button pl-3 pr-3" href="/XMoneyRe/">Back To Main</a>
+      </div>
+    </div>
+
+    <!-- ending text -->
+    <div class="row mt-5">
+      <div class="col-12 col-md-12 col-sm-12 col-lg-12 col-xl-12 d-flex align-items-center"
+        style="padding:0px;margin:0px;text-align:center;">
+        <p class="description-text" align="center">---- You've Reached the Bottom Here ----</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</body>

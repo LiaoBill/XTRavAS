@@ -1,0 +1,86 @@
+{% load static %}
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/solid.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'XMoneyRe/css/XMoneyObj-SingleOverview-style.css' %}">
+<script>
+  function selectMO(obj_id) {
+    window.location.href = "/XMoneyRe/mo/" + obj_id;
+    // window.location.href = "/XMoneyRe/mf";
+  }
+
+  function jump_to_user_outlook(username) {
+    window.location.href = "/XMoneyRe/userv/" + username;
+  }
+</script>
+
+<!-- take x_money_object as input -->
+<div class="container">
+  <!-- all part -->
+  <div class="row" onclick="selectMO('{{x_money_object.object_id}}')">
+    <!-- a star here -->
+    <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-1 d-flex align-items-center"
+      style="margin:0px; padding:0px;">
+      <svg width="1rem" height="1rem" viewBox="0 0 24 24">
+        <path style="fill: white;"
+          d="M12 .288l2.833 8.718h9.167l-7.417 5.389 2.833 8.718-7.416-5.388-7.417 5.388 2.833-8.718-7.416-5.389h9.167z" />
+      </svg>
+    </div>
+    <!-- image and price here -->
+    <div class="col-5 col-md-5 col-sm-5 col-lg-5 col-xl-5 pl-1 pr-1 mt-3 mb-3"
+      style="margin:0px; padding:0px; position:relative;">
+      {% if x_money_object.image == "" %}
+      <img src="/media/mo-images/default-image-sv.png" class="img-fluid  rounded float-left object-image">
+      <img src="{% static 'XMoneyRe/images/image-border.png' %}" class="img-fluid  rounded border-image">
+      {% else %}
+      <img src="{{mo_image_url}}" class="img-fluid  rounded float-left object-image">
+      <img src="{% static 'XMoneyRe/images/image-border.png' %}" class="img-fluid  rounded border-image">
+      {% endif %}
+      <span class="object-price rounded">{{ x_money_object.price|add:" "|add:x_money_object.currency_unit }}</span>
+    </div>
+    <!-- name, des, date here -->
+    <div class="col-6 col-md-6 col-sm-6 col-lg-6 col-xl-6 pl-1 pr-1 mt-3 mb-3"
+      style="margin:0px; padding:0px; position: relative;">
+      <p class="object-name">{{name}}</p>
+      <p class="object-local-date mt-1" style="color:white;">{{x_money_object.local_date}}</p>
+    </div>
+  </div>
+  <div class="row">
+
+    <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded"
+      style="height: .2rem; width: 100%">
+  </div>
+  <div class="row mt-2 mb-2">
+    <!-- creator -->
+    <div class="col-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" style="padding:0;margin:0;" align="right">
+      <p class="admin-related-p">初始创建人: </p>
+    </div>
+    <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-1 pr-1" style="padding:0;margin:0;">
+      <img class="head-portrait-image rounded" src="{{ creator_hp_url }}"
+        onclick="jump_to_user_outlook('{{creator_username}}')">
+    </div>
+    <div class="col-2 col-md-2 col-sm-2 col-lg-2 col-xl-2" style="padding:0;margin:0;" align="left">
+      <p class="admin-related-p"> {{creator_username}}</p>
+    </div>
+    <!-- updator -->
+    <div class="col-3 col-md-3 col-sm-3 col-lg-3 col-xl-3" style="padding:0;margin:0;" align="right">
+      <p class="admin-related-p">最后更新人: </p>
+    </div>
+    <div class="col-1 col-md-1 col-sm-1 col-lg-1 col-xl-1 pl-1 pr-1" style="padding:0;margin:0;">
+      <img class="head-portrait-image rounded" src="{{ updator_hp_url }}"
+        onclick="jump_to_user_outlook('{{updator_username}}')">
+    </div>
+    <div class="col-2 col-md-2 col-sm-2 col-lg-2 col-xl-2" style="padding:0;margin:0;" align="left">
+      <p class="admin-related-p"> {{updator_username}}</p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <img src="{% static 'XMoneyRe/images/seperating-line.png' %}" class="img-fluid rounded float-left"
+      style="height: .3rem; width: 100%">
+  </div>
+</div>

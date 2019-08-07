@@ -1,0 +1,213 @@
+body{
+  background-color: #007acc;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+@font-face{
+  font-family: 'Inkfree';
+  src: local('Inkfree'),
+       url('../fonts/Inkfree.ttf') format("truetype");
+}
+.title-text{
+  font-size: 3rem;
+  color: #f5f5f5;
+  font-family: "InkFree";
+  padding: 0px;
+  margin: auto;
+}
+.description-text{
+  font-size: 1rem;
+  color: #f5f5f5;
+  font-family: "InkFree";
+  padding:0px;
+  margin: auto;
+}
+
+.mo-description-cue-class{
+  font-family: 'InkFree';
+  font-size: 1.2rem;
+  color: #f5f5f5;
+  display:block;
+  margin:0;
+  padding:0;
+}
+
+#common-button {
+  font-size: 1.5rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+}
+#common-button:hover{
+  font-size: 1.5rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+}
+#common-button:active{
+  font-size: 1.5rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#f5f5f5;
+  background-color: #cc001b;
+}
+
+.addmo-feedback-message{
+  font-family: 'InkFree';
+  font-size: 1rem;
+  color: #f5f5f5;
+}
+
+/* source button */
+.source_button{
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+  border-radius: .7rem;
+}
+.source_button:hover{
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+  border-radius: .7rem;
+}
+.source_button:active{
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#f5f5f5;
+  background-color: #007acc;
+  border: dashed white 1px;
+  border-radius: .7rem;
+}
+
+
+.keyboard-done-btn{
+  padding:0px;
+  margin:0px;
+  border: dashed 1px white;
+  height: auto;
+  width: 100%;
+  font-size: 3rem;
+  color: #f5f5f5;
+  background-color: #007acc;
+  font-family: "InkFree";
+}
+
+.keyboard-done-btn:hover{
+  padding:0px;
+  margin:0px;
+  border: dashed 1px white;
+  height: auto;
+  width: 100%;
+  font-size: 3rem;
+  color: #f5f5f5;
+  background-color: #007acc;
+  font-family: "InkFree";
+}
+
+.keyboard-done-btn:active{
+  padding:0px;
+  margin:0px;
+  height: auto;
+  width: 100%;
+  font-size: 3rem;
+  color: #007acc;
+  background-color: #f5f5f5;
+  font-family: "InkFree";
+}
+
+
+.mo_key_input{
+  font-family: 'InkFree';
+  font-size: 2rem;
+  color: #f5f5f5;
+  text-decoration: none;
+  background-color: #007acc;
+  border:none;
+  padding:0;
+  margin:0;
+  width:100%;
+  border-bottom: dashed 1px white;
+}
+
+.mo_key_input:focus{
+  font-family: 'InkFree';
+  font-size: 2rem;
+  color: #f5f5f5;
+  text-decoration: none;
+  background-color: #0489e2;
+  border:none;
+  padding:0;
+  margin:0;
+  width:100%;
+  border-bottom: dashed 1px white;
+}
+
+
+
+.mo_key_des{
+  font-family: 'InkFree';
+  font-size: 2rem;
+  color: #f5f5f5;
+  padding:0;
+  margin:0;
+}
+
+.submit-button {
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+}
+
+.submit-button:hover{
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#007acc;
+  background-color: #f5f5f5;
+}
+
+.submit-button:active{
+  font-size: 3rem;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  width: 100%;
+  font-family: "InkFree";
+  color:#f5f5f5;
+  background-color: #cc001b;
+}
